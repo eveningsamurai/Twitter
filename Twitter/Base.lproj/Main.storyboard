@@ -60,16 +60,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="136" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uDS-2a-gBz">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="336" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uDS-2a-gBz">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TweetCell" rowHeight="218" id="fhs-nh-slX" customClass="TweetCell" customModule="Twitter" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="218"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TweetCell" rowHeight="336" id="fhs-nh-slX" customClass="TweetCell" customModule="Twitter" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="336"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fhs-nh-slX" id="6lK-lB-mUs">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="217"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="335"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nnw-vm-pIg">
@@ -96,15 +96,15 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4cf-9w-pew">
-                                                    <rect key="frame" x="8" y="64" width="359" height="145"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="253" horizontalCompressionResistancePriority="753" verticalCompressionResistancePriority="753" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4cf-9w-pew">
+                                                    <rect key="frame" x="8" y="64" width="359" height="267.5"/>
+                                                    <string key="text">I may not do it again unless I have a long layover at Dubai, just because of the wait involved. Won't stop me from flying @emirates though</string>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="4cf-9w-pew" secondAttribute="bottom" constant="8" id="4tn-60-E9D"/>
                                                 <constraint firstAttribute="trailing" secondItem="4cf-9w-pew" secondAttribute="trailing" constant="8" id="CtI-PU-YUK"/>
                                                 <constraint firstItem="Nnw-vm-pIg" firstAttribute="top" secondItem="6lK-lB-mUs" secondAttribute="top" constant="8" id="GMa-N4-W3r"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hfa-LV-Alx" secondAttribute="trailing" constant="100" id="GfE-8t-aN2"/>
@@ -114,6 +114,7 @@
                                                 <constraint firstItem="QBk-cq-33x" firstAttribute="leading" secondItem="Nnw-vm-pIg" secondAttribute="trailing" constant="8" id="Rbp-Y3-em4"/>
                                                 <constraint firstItem="4cf-9w-pew" firstAttribute="top" secondItem="Nnw-vm-pIg" secondAttribute="bottom" constant="8" id="jfn-LP-K8L"/>
                                                 <constraint firstItem="hfa-LV-Alx" firstAttribute="top" secondItem="QBk-cq-33x" secondAttribute="bottom" constant="8" id="k0V-55-ihX"/>
+                                                <constraint firstAttribute="bottom" secondItem="4cf-9w-pew" secondAttribute="bottom" constant="4" id="le8-Tz-OCI"/>
                                                 <constraint firstItem="hfa-LV-Alx" firstAttribute="leading" secondItem="Nnw-vm-pIg" secondAttribute="trailing" constant="8" id="nKh-IV-7NY"/>
                                                 <constraint firstItem="QBk-cq-33x" firstAttribute="top" secondItem="6lK-lB-mUs" secondAttribute="top" constant="8" id="seu-NK-ts4"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="QBk-cq-33x" secondAttribute="trailing" constant="100" id="vci-W0-Qgw"/>

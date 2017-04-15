@@ -24,7 +24,7 @@ class User: NSObject {
         self.name = user["name"] as? String
         self.screenName = user["screen_name"] as? String
         
-        let profileUrlString = user["profile_image_https_url"] as? String
+        let profileUrlString = user["profile_image_url_https"] as? String
         if let profileUrlString = profileUrlString {
             self.profileUrl = URL(string: profileUrlString)
         }
@@ -39,7 +39,7 @@ class User: NSObject {
             if _currentUser == nil {
                 let defaults = UserDefaults.standard
                 let userData = defaults.object(forKey: "currentUserData") as? Data
-                
+
                 if let userData = userData {
                     let dict = try! JSONSerialization.jsonObject(with: userData, options: []) as! NSDictionary
                     _currentUser = User(user: dict)

@@ -14,6 +14,7 @@ class Tweet: NSObject {
     var timestamp: NSDate?
     var retweetCount: Int = 0
     var favoritesCount: Int = 0
+    var user: User?
     
     init(tweetDict: NSDictionary) {
         self.text = tweetDict["text"] as? String
@@ -28,6 +29,7 @@ class Tweet: NSObject {
         
         self.retweetCount = (tweetDict["retweet_count"] as? Int) ?? 0
         self.favoritesCount = (tweetDict["favourites_count"] as? Int) ?? 0
+        self.user = User(user: tweetDict["user"] as! NSDictionary)
     }
     
     //get the complete list of tweets

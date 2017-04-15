@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AFNetworking
 
 class TweetCell: UITableViewCell {
 
@@ -14,6 +15,21 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var timestampLabel: UILabel!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var twitterProfileView: UIImageView!
+    
+    var tweet: Tweet! {
+        didSet {
+            tweetLabel.text = tweet.text
+            userNameLabel.text = tweet.user?.screenName
+            
+            let ts = tweet.timestamp
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+            let dateString = dateFormatter.string(from: ts as! Date)
+            timestampLabel.text = dateString
+            
+            twitterProfileView.setImageWith((tweet.user?.profileUrl)!)
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
