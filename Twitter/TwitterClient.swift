@@ -70,6 +70,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         )
     }
     
+    //get tweets from the home timeline
     func homeTimeline(success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
         get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil,
             success: { (task: URLSessionDataTask, response: Any?) in
@@ -84,6 +85,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         )
     }
     
+    //verify the current credentials of the logged in account
     func currentAccount(success: @escaping (User) -> (), failure: @escaping (Error) -> ()) {
         get("1.1/account/verify_credentials.json", parameters: nil, progress: nil,
             success: { (task: URLSessionDataTask, response: Any?) in
@@ -93,6 +95,71 @@ class TwitterClient: BDBOAuth1SessionManager {
                 success(user)
             },
             failure: { (task: URLSessionDataTask?, error: Error) in
+                failure(error)
+            }
+        )
+    }
+    
+    //reply to a tweet
+    func replyToTweet(withTweetId tweetId: Int64, andText text:String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        guard let encodedText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics) else {
+            print("Cannot post with invalid text!")
+            return
+        }
+        
+        var params = [String: Any]()
+        params["status"] = encodedText
+        params["in_reply_to_status_id"] = tweetId
+        
+        post("1.1/statuses/update.json", parameters: params, progress: nil,
+            success: { (task: URLSessionDataTask, response: Any?) in
+                let replyTweet = Tweet(tweetDict: response as! NSDictionary)
+                success(replyTweet)
+            },
+            failure: { (task: URLSessionDataTask?, error: Error) in
+                failure(error)
+            }
+        )
+    }
+    
+    //retweet or unretweet
+    func retweet(withTweetId tweetId: Int64, alreadyRetweeted: Bool, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        var url: String?
+        if(alreadyRetweeted) {
+            url = "1.1/statuses/unretweet/\(tweetId).json"
+        } else {
+            url = "1.1/statuses/retweet/\(tweetId).json"
+        }
+        post(url!, parameters: nil, progress: nil,
+             success: { (task: URLSessionDataTask, response: Any?) in
+                let retweetTweet = Tweet(tweetDict: response as! NSDictionary)
+                success(retweetTweet)
+            },
+             failure: { (task: URLSessionDataTask?, error: Error) in
+                failure(error)
+            }
+        )
+    }
+    
+    //favorite or unfavorite
+    func favorite(withTweetId tweetId: Int64, alreadyFavorited: Bool, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        var url: String?
+        if(alreadyFavorited) {
+            url = "1.1/favorites/destroy.json"
+        } else {
+            url = "1.1/favorites/create.json"
+        }
+        
+        var params = [String: Any]()
+        params["id"] = tweetId
+        
+        post(url!, parameters: params, progress: nil,
+             success: { (task: URLSessionDataTask, response: Any?) in
+                let favTweet = Tweet(tweetDict: response as! NSDictionary)
+                print(response)
+                success(favTweet)
+            },
+             failure: { (task: URLSessionDataTask?, error: Error) in
                 failure(error)
             }
         )
