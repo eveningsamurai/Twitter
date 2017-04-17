@@ -18,15 +18,17 @@ The following **required** functionality is completed:
 The following **optional** features are implemented:
 
 - [x] When composing, there is a countdown for the tweet limit
+- [ ] After creating a new tweet, a user should be able to view it in the timeline immediately without refetching the timeline from the network.
 - [x] Retweeting and favoriting increment the retweet and favorite count
 - [x] User is able to unretweet and unfavorite and decrement the retweet and favorite count
 - [x] Replies by default are prefixed with the user name to which the reply is being sent
+- [x] User can load more tweets once they reach the bottom of the feed using infinite loading.
 
 ## Walkthrough of all user stories
 
-Walkthrough: OAuth Process                    |  Walkthrough: Required/Optional Features       |
-:--------------------------------------------:|:----------------------------------------------:|
-![Video Walkthrough](twitter_animations1.gif) | ![Video Walkthrough](twitter_animations2.gif)  |
+Walkthrough: OAuth Process                    |  Walkthrough: Required/Optional Features       | Walkthrough: Required/Optional Features        |
+:--------------------------------------------:|:----------------------------------------------:|:----------------------------------------------:|
+![Video Walkthrough](twitter_animations1.gif) | ![Video Walkthrough](twitter_animations2.gif)  | ![Video Walkthrough](twitter_animations3.gif)  |
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/)
 

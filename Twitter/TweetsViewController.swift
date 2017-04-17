@@ -13,6 +13,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var tableView: UITableView!
 
     var tweets = [Tweet]()
+    var minTweetId = INT64_MAX
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,12 +27,20 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
         
-        TwitterClient.sharedInstance.homeTimeline(withMaxId: -1, success: { (tweets: [Tweet]) in
-            self.tweets = tweets
-            self.tableView.reloadData()
-        }) { (error: Error) in
-            print("error: \(error.localizedDescription)")
-        }
+        //add spinner for infinity scroll
+        let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        spinner.startAnimating()
+        spinner.frame = CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 44)
+        self.tableView.tableFooterView = spinner;
+
+        fetchTweets(maxId: -1)
+//        TwitterClient.sharedInstance.homeTimeline(withMaxId: -1, success: { (tweets: [Tweet]) in
+//            self.tweets = tweets
+//            self.minTweetId = self.getMinTweetId(tweets: tweets)
+//            self.tableView.reloadData()
+//        }) { (error: Error) in
+//            print("error: \(error.localizedDescription)")
+//        }
     }
 
     @IBAction func onLogout(_ sender: Any) {
@@ -55,17 +64,22 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if (indexPath.row == self.tweets.count - 2) {
+            fetchTweets(maxId: minTweetId)
+        }
     }
     
     //get updated data
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
-        TwitterClient.sharedInstance.homeTimeline(withMaxId: -1, success: { (tweets: [Tweet]) in
-            self.tweets = tweets
-            self.tableView.reloadData()
-        }) { (error: Error) in
-            print("error: \(error.localizedDescription)")
-        }
+        fetchTweets(maxId: -1)
+//        TwitterClient.sharedInstance.homeTimeline(withMaxId: minTweetId, success: { (tweets: [Tweet]) in
+//            self.tweets = tweets
+//            self.minTweetId = self.getMinTweetId(tweets: tweets)
+//            self.tableView.reloadData()
+//        }) { (error: Error) in
+//            print("error: \(error.localizedDescription)")
+//        }
         refreshControl.endRefreshing()
     }
     
@@ -77,5 +91,25 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let detailsViewController = navigationController.topViewController as! DetailsViewController
             detailsViewController.tweet = cell.tweet
         }
+    }
+    
+    func fetchTweets(maxId: Int64) {
+        TwitterClient.sharedInstance.homeTimeline(withMaxId: maxId, success: { (tweets: [Tweet]) in
+            self.tweets = tweets
+            self.minTweetId = self.getMinTweetId(tweets: tweets)
+            self.tableView.reloadData()
+        }) { (error: Error) in
+            print("error: \(error.localizedDescription)")
+        }
+    }
+    
+    func getMinTweetId(tweets: [Tweet]) -> Int64 {
+        var minId = INT64_MAX
+        for tweet in tweets {
+            if tweet.tweetId! < minId {
+                minId = tweet.tweetId!
+            }
+        }
+        return minId
     }
 }

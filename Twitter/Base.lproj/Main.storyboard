@@ -61,9 +61,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="336" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uDS-2a-gBz">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="336" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uDS-2a-gBz">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TweetCell" rowHeight="336" id="fhs-nh-slX" customClass="TweetCell" customModule="Twitter" customModuleProvider="target">
@@ -144,6 +143,12 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="YtY-8e-tuM" firstAttribute="top" secondItem="uDS-2a-gBz" secondAttribute="bottom" id="5dz-Nx-p1A"/>
+                            <constraint firstItem="uDS-2a-gBz" firstAttribute="top" secondItem="LJB-hy-B8R" secondAttribute="top" id="EqY-3j-lsp"/>
+                            <constraint firstItem="uDS-2a-gBz" firstAttribute="leading" secondItem="LJB-hy-B8R" secondAttribute="leading" id="PAE-6Y-3sM"/>
+                            <constraint firstAttribute="trailing" secondItem="uDS-2a-gBz" secondAttribute="trailing" id="Wq6-VA-2n8"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Twitter Home" id="Ybr-rf-peU">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="mgi-fo-KT5">

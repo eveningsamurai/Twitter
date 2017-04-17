@@ -12,7 +12,6 @@ import BDBOAuth1Manager
 class TwitterClient: BDBOAuth1SessionManager {
     
     static let sharedInstance = TwitterClient(baseURL: URL(string: "https://api.twitter.com"), consumerKey: "s8524l4gwyiteBMc8wPIvPfxg", consumerSecret: "XdTDxN6Ksl5ffKp5kRs0ndaEr7DGwLoOfXJE5rIM2lJXA9XCEY")!
-    
     var loginSuccess: (() -> ())?
     var loginFailure: ((Error) -> ())?
     
@@ -72,7 +71,13 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     //get tweets from the home timeline
     func homeTimeline(withMaxId tweetId: Int64, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
-        get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil,
+        var params = [String: Any]()
+        
+        if tweetId != -1 {
+            params["max_id"] = tweetId
+        }
+        
+        get("1.1/statuses/home_timeline.json", parameters: params, progress: nil,
             success: { (task: URLSessionDataTask, response: Any?) in
                 let tweetsDictArr = response as! [NSDictionary]
                 let tweets = Tweet.getTweetsArray(dicts: tweetsDictArr)
@@ -102,7 +107,6 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     //reply to a tweet
     func replyToTweet(withTweetId tweetId: Int64, andText text:String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
-        
         var params = [String: Any]()
         params["status"] = text
         params["in_reply_to_status_id"] = tweetId
