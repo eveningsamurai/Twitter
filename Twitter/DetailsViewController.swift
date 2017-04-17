@@ -26,6 +26,35 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var detailProfileRetweetButton: UIButton!
     @IBOutlet weak var detailProfileFavButton: UIButton!
     
+    var isFavorite: Bool {
+        get {
+            return (tweet?.isFavorite)!
+        }
+        set {
+            if(newValue) {
+                self.detailProfileFavButton.imageView?.image = UIImage(named: "twitter_faved")
+            } else {
+                self.detailProfileFavButton.imageView?.image = UIImage(named: "twitter_fav")
+            }
+            tweet?.isFavorite = newValue
+            detailProfileFavoritesLabel.text = String(tweet?.favoritesCount ?? 0)
+        }
+    }
+    
+    var isRetweeted: Bool {
+        get {
+            return (tweet?.isRetweeted)!
+        }
+        set {
+            if(newValue) {
+                self.detailProfileRetweetButton.imageView?.image = UIImage(named: "twitter_rted")
+            } else {
+                self.detailProfileRetweetButton.imageView?.image = UIImage(named: "twitter_rt")
+            }
+            tweet?.isRetweeted = newValue
+            detailProfileRetweetsLabel.text = String(tweet?.retweetCount ?? 0)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,18 +67,7 @@ class DetailsViewController: UIViewController {
         detailProfileFavoritesLabel.text = String(tweet!.favoritesCount)
         
         alreadyRetweeted = (tweet?.retweeted)!
-        if(self.alreadyRetweeted)! {
-            self.detailProfileRetweetButton.imageView?.image = UIImage(named: "twitter_rted")
-        } else {
-            self.detailProfileRetweetButton.imageView?.image = UIImage(named: "twitter_rt")
-        }
-
         alreadyFavorited = (tweet?.favorited)!
-        if(self.alreadyFavorited)! {
-            self.detailProfileFavButton.imageView?.image = UIImage(named: "twitter_faved")
-        } else {
-            self.detailProfileFavButton.imageView?.image = UIImage(named: "twitter_fav")
-        }
         
         let ts = tweet?.timestamp
         let dateFormatter = DateFormatter()
@@ -73,7 +91,7 @@ class DetailsViewController: UIViewController {
     }
     
     @IBAction func onRetweetLabel(_ sender: Any) {
-        TwitterClient.sharedInstance.retweet(withTweetId: (tweet?.tweetId)!, alreadyRetweeted: alreadyRetweeted!,
+        TwitterClient.sharedInstance.retweet(withTweetId: (tweet?.tweetId)!, alreadyRetweeted: isRetweeted,
             success: { (tweet: Tweet) in
                 let alert = UIAlertController(title: "Retweet",
                                               message: "Retweet posted",
@@ -84,7 +102,8 @@ class DetailsViewController: UIViewController {
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: nil)
                 self.alreadyRetweeted = !self.alreadyRetweeted!
-                if(self.alreadyRetweeted)! {
+                self.isRetweeted = !self.isRetweeted
+                if(self.isRetweeted) {
                     self.detailProfileRetweetButton.imageView?.image = UIImage(named: "twitter_rted")
                 } else {
                     self.detailProfileRetweetButton.imageView?.image = UIImage(named: "twitter_rt")
@@ -98,7 +117,7 @@ class DetailsViewController: UIViewController {
     }
     
     @IBAction func onFavButton(_ sender: Any) {
-        TwitterClient.sharedInstance.favorite(withTweetId: (tweet?.tweetId)!, alreadyFavorited: alreadyFavorited!,
+        TwitterClient.sharedInstance.favorite(withTweetId: (tweet?.tweetId)!, alreadyFavorited: isFavorite,
              success: { (tweet: Tweet) in
                 let alert = UIAlertController(title: "Favorite",
                                               message: "Favorite posted",
@@ -109,7 +128,8 @@ class DetailsViewController: UIViewController {
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: nil)
                 self.alreadyFavorited = !self.alreadyFavorited!
-                if(self.alreadyFavorited)! {
+                self.isFavorite = !self.isFavorite
+                if(self.isFavorite) {
                     self.detailProfileFavButton.imageView?.image = UIImage(named: "twitter_faved")
                 } else {
                     self.detailProfileFavButton.imageView?.image = UIImage(named: "twitter_fav")

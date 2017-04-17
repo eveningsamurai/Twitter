@@ -18,6 +18,32 @@ class Tweet: NSObject {
     var tweetId: Int64?
     var favorited: Bool?
     var retweeted: Bool?
+    var isFavorite = false {
+        didSet {
+            if isFavorite {
+                favoritesCount += 1
+            } else {
+                favoritesCount -= 1
+            }
+        }
+    }
+    var isRetweeted = false {
+        didSet {
+            if isRetweeted {
+                retweetCount += 1
+            } else {
+                retweetCount -= 1
+            }
+        }
+    }
+
+    func callbackSuccess(tweet: Tweet) {
+    }
+    
+    func callbackFailure(error: Error) {
+        print("unable to set flag for isFavorite or isRetweeted")
+    }
+    
     
     init(tweetDict: NSDictionary) {
         self.text = tweetDict["text"] as? String

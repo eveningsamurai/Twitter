@@ -71,7 +71,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     }
     
     //get tweets from the home timeline
-    func homeTimeline(success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+    func homeTimeline(withMaxId tweetId: Int64, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
         get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil,
             success: { (task: URLSessionDataTask, response: Any?) in
                 let tweetsDictArr = response as! [NSDictionary]
@@ -158,21 +158,5 @@ class TwitterClient: BDBOAuth1SessionManager {
                 failure(error)
             }
         )
-    }
-    
-    //show individual tweet
-    func showTweet(withTweetId tweetId: Int64, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
-        var params = [String: Any]()
-        params["id"] = tweetId
-        
-        post("1.1/statuses/show.json", parameters: params, progress: nil,
-             success: { (task: URLSessionDataTask, response: Any?) in
-                let updatedTweet = Tweet(tweetDict: response as! NSDictionary)
-                success(updatedTweet)
-        },
-             failure: { (task: URLSessionDataTask?, error: Error) in
-                failure(error)
-        }
-        )
-    }
+    }    
 }

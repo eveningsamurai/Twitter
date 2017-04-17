@@ -26,7 +26,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
         
-        TwitterClient.sharedInstance.homeTimeline(success: { (tweets: [Tweet]) in
+        TwitterClient.sharedInstance.homeTimeline(withMaxId: -1, success: { (tweets: [Tweet]) in
             self.tweets = tweets
             self.tableView.reloadData()
         }) { (error: Error) in
@@ -60,7 +60,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     //get updated data
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
-        TwitterClient.sharedInstance.homeTimeline(success: { (tweets: [Tweet]) in
+        TwitterClient.sharedInstance.homeTimeline(withMaxId: -1, success: { (tweets: [Tweet]) in
             self.tweets = tweets
             self.tableView.reloadData()
         }) { (error: Error) in
