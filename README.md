@@ -24,9 +24,9 @@ The following **optional** features are implemented:
 
 ## Walkthrough of all user stories
 
-Walkthrough: OAuth Login/Logout              |  Walkthrough: Required/Optional Features |
-:-------------------------------------------:|:----------------------------------------:|:
-![Video Walkthrough](twitter_animations1.gif) | ![Video Walkthrough](twitter_animations2.gif)
+Walkthrough: OAuth Login/Logout              |  Walkthrough: Required/Optional Features       |
+:-------------------------------------------:|:---------------------------------------------- :|:
+![Video Walkthrough](twitter_animations1.gif) | ![Video Walkthrough](twitter_animations2.gif) |
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/)
 
