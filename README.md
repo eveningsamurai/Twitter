@@ -24,14 +24,12 @@ The following **optional** features are implemented:
 
 ## Walkthrough of all user stories
 
-Walkthrough: General                         |  
-:-------------------------------------------:|
-![Video Walkthrough](yelp_animations2.gif)  |
+Walkthrough: OAuth Login/Logout              |  Walkthrough: Required/Optional Features |
+:-------------------------------------------:|:----------------------------------------:|:
+![Video Walkthrough](twitter_animations1.gif) | ![Video Walkthrough](twitter_animations2.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/)
 
 ## Notes
 
-Complex project in terms of getting the filters working. Unable to fix all issues in getting the filters working 
-Want to work more on getting this polished.
 
