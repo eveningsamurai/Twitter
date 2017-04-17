@@ -8,18 +8,24 @@
 
 import UIKit
 
-class ReplyViewController: UIViewController {
+class ReplyViewController: UIViewController, UITextViewDelegate {
 
-    var tweet: Tweet?
-    
     @IBOutlet weak var replyImageView: UIImageView!
     @IBOutlet weak var replyNameLabel: UILabel!
     @IBOutlet weak var replyScreenNameLabel: UILabel!
     @IBOutlet weak var replyTweetTextView: UITextView!
     @IBOutlet weak var replyCharactersRemainingLabel: UILabel!
+
+    var tweet: Tweet?
+    var numCharsRemaining: Int? {
+        didSet {
+            replyCharactersRemainingLabel.text = String(numCharsRemaining ?? 0) + " chars"
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        replyTweetTextView.delegate = self
 
         replyNameLabel.text = tweet?.user?.name
         replyScreenNameLabel.text = tweet?.user?.screenName
@@ -55,4 +61,28 @@ class ReplyViewController: UIViewController {
         
     }
     
+    func textViewDidChange(_ textView: UITextView) {
+        numCharsRemaining = 140 - replyTweetTextView.text.characters.count
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let currentText = replyTweetTextView.text ?? ""
+        guard let stringRange = range.range(for: currentText) else { return false }
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: text)
+        
+        return updatedText.characters.count <= 140
+    }
+}
+
+extension NSRange {
+    func range(for str: String) -> Range<String.Index>? {
+        guard location != NSNotFound else { return nil }
+        
+        guard let fromUTFIndex = str.utf16.index(str.utf16.startIndex, offsetBy: location, limitedBy: str.utf16.endIndex) else { return nil }
+        guard let toUTFIndex = str.utf16.index(fromUTFIndex, offsetBy: length, limitedBy: str.utf16.endIndex) else { return nil }
+        guard let fromIndex = String.Index(fromUTFIndex, within: str) else { return nil }
+        guard let toIndex = String.Index(toUTFIndex, within: str) else { return nil }
+        
+        return fromIndex ..< toIndex
+    }
 }

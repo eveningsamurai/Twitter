@@ -102,13 +102,9 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     //reply to a tweet
     func replyToTweet(withTweetId tweetId: Int64, andText text:String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
-        guard let encodedText = text.addingPercentEncoding(withAllowedCharacters: .alphanumerics) else {
-            print("Cannot post with invalid text!")
-            return
-        }
         
         var params = [String: Any]()
-        params["status"] = encodedText
+        params["status"] = text
         params["in_reply_to_status_id"] = tweetId
         
         post("1.1/statuses/update.json", parameters: params, progress: nil,
@@ -156,12 +152,27 @@ class TwitterClient: BDBOAuth1SessionManager {
         post(url!, parameters: params, progress: nil,
              success: { (task: URLSessionDataTask, response: Any?) in
                 let favTweet = Tweet(tweetDict: response as! NSDictionary)
-                print(response)
                 success(favTweet)
             },
              failure: { (task: URLSessionDataTask?, error: Error) in
                 failure(error)
             }
+        )
+    }
+    
+    //show individual tweet
+    func showTweet(withTweetId tweetId: Int64, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        var params = [String: Any]()
+        params["id"] = tweetId
+        
+        post("1.1/statuses/show.json", parameters: params, progress: nil,
+             success: { (task: URLSessionDataTask, response: Any?) in
+                let updatedTweet = Tweet(tweetDict: response as! NSDictionary)
+                success(updatedTweet)
+        },
+             failure: { (task: URLSessionDataTask?, error: Error) in
+                failure(error)
+        }
         )
     }
 }
