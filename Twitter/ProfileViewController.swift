@@ -11,15 +11,22 @@ import AFNetworking
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var tableView: UITableView!
+    //hamburger bar button
+    @IBOutlet weak var hamburgerBarButton: UIBarButtonItem!
+    
+    //header elements
     @IBOutlet weak var headerHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var screenNameTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var bannerImageView: UIImageView!
+    
+    //tweets table elements
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var screenNameLabel: UILabel!
     @IBOutlet weak var profileViewNumTweetsLabel: UILabel!
     @IBOutlet weak var profileNumFollowersLabel: UILabel!
     @IBOutlet weak var profileNumFollowingLabel: UILabel!
     
+    //table view properties
     let maxHeaderHeight: CGFloat = 270;
     let minHeaderHeight: CGFloat = 135;
     var previousScrollOffset: CGFloat = 0
@@ -58,16 +65,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         fetchTweets(maxId: -1)
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tweets.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = UITableViewCell()
-//        cell.textLabel?.text = "Cell \(indexPath.row)"
-//        return cell
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell", for: indexPath) as! ProfileCell
         cell.tweet = tweets[indexPath.row]
         return cell
@@ -165,4 +168,5 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         return minId
     }
+
 }
