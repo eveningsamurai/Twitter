@@ -1,36 +1,30 @@
 //
-//  TweetCell.swift
+//  ProfileCell.swift
 //  Twitter
 //
-//  Created by Padmanabhan, Avinash on 4/14/17.
+//  Created by Padmanabhan, Avinash on 4/23/17.
 //  Copyright © 2017 Intuit. All rights reserved.
 //
 
 import UIKit
-import AFNetworking
 
-class TweetCell: UITableViewCell {
+class ProfileCell: UITableViewCell {
 
-    @IBOutlet weak var tweetLabel: UILabel!
-    @IBOutlet weak var timestampLabel: UILabel!
-    @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var twitterProfileView: UIImageView!
-    @IBOutlet weak var tweetTimeSinceLabel: UILabel!
-    
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var profileUserNameLabel: UILabel!
+    @IBOutlet weak var profileScreenNameLabel: UILabel!
+    @IBOutlet weak var profileTweetLabel: UILabel!
+    @IBOutlet weak var profileTimeStampLabel: UILabel!
     
     var tweet: Tweet! {
         didSet {
-            tweetLabel.text = tweet.text
-            userNameLabel.text = tweet.user?.name
-            timestampLabel.text = tweet.user?.screenName
+            profileTweetLabel.text = tweet.text
+            profileUserNameLabel.text = tweet.user?.name
+            profileScreenNameLabel.text = tweet.user?.screenName
             
             let ts = tweet.timestamp
             
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-            let dateString = dateFormatter.string(from: ts as! Date)
-            timestampLabel.text = dateString
-            
             dateFormatter.dateFormat = "MMM d"
             let sinceString = dateFormatter.string(from: ts as! Date)
             var sinceLabelText = sinceString
@@ -42,11 +36,11 @@ class TweetCell: UITableViewCell {
                 } else if hours < 24 {
                     sinceLabelText = "\(Int(hours))h"
                 }
-                tweetTimeSinceLabel.text = sinceLabelText
+                profileTimeStampLabel.text = sinceLabelText
             }
             
             
-            twitterProfileView.setImageWith((tweet.user?.profileUrl)!)
+            profileImageView.setImageWith((tweet.user?.profileUrl)!)
         }
     }
     

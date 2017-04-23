@@ -14,7 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -23,7 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if User.currentUser != nil {
             print("There is a current user")
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyBoard.instantiateViewController(withIdentifier: "TweetsNavigationController")
+            //let vc = storyBoard.instantiateViewController(withIdentifier: "TweetsNavigationController")
+            //let vc = storyBoard.instantiateViewController(withIdentifier: "MentionsNavigationController")
+            let vc = storyBoard.instantiateViewController(withIdentifier: "ProfileNavigationController")
             
             window?.rootViewController = vc
         }
