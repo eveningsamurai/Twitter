@@ -285,9 +285,6 @@
                                                             <integer key="value" value="24"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <outletCollection property="gestureRecognizers" destination="uRn-ib-e9y" appends="YES" id="lXr-Yy-e9X"/>
-                                                    </connections>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Avinash Padmanabhan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QBk-cq-33x">
                                                     <rect key="frame" x="64" y="8" width="180" height="24"/>
@@ -369,11 +366,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IOE-j8-Q2d" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="uRn-ib-e9y">
-                    <connections>
-                        <action selector="onTapGesture:" destination="j0c-dk-PTN" id="9i8-fb-cHe"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1889" y="134"/>
         </scene>

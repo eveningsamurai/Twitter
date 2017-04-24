@@ -33,6 +33,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     var tweets = [Tweet]()
     var minTweetId = INT64_MAX
     var user = User.currentUser!
+    var newUser: User? {
+        didSet {
+            user = newUser!
+            view.layoutIfNeeded()
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

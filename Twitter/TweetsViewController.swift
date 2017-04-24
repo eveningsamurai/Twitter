@@ -41,14 +41,6 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         TwitterClient.sharedInstance.logout()
     }
     
-    @IBAction func onTapGesture(_ sender: UITapGestureRecognizer) {
-        if let tappedRow = sender.view?.tag {
-            let tweet = tweets[tappedRow]
-            profile = tweet.user
-        }
-        performSegue(withIdentifier: "userToProfile", sender: self)
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tweets.count
     }
@@ -57,6 +49,10 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
         
         cell.tweet = tweets[indexPath.row]
+        cell.twitterProfileView.tag = indexPath.row
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTapGesture))
+        cell.twitterProfileView.addGestureRecognizer(gestureRecognizer)
+        cell.twitterProfileView.isUserInteractionEnabled = true
         
         return cell
     }
@@ -65,6 +61,14 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if (indexPath.row == self.tweets.count - 2) {
             fetchTweets(maxId: minTweetId)
         }
+    }
+    
+    func onTapGesture(_ sender: UITapGestureRecognizer) {
+        if let tappedRow = sender.view?.tag {
+            let tweet = tweets[tappedRow]
+            profile = tweet.user
+        }
+        performSegue(withIdentifier: "userToProfile", sender: self)
     }
     
     //get updated data
@@ -84,7 +88,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let profileViewController = segue.destination as! ProfileViewController
             if let profile = profile {
                 print("Profile \(profile)")
-                //profileViewController.userData = profile
+                profileViewController.newUser = profile
             }
         }
     }
