@@ -54,6 +54,9 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         } else {
             cell.textLabel?.text = "Mentions"
         }
+        cell.textLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 21)
+        cell.textLabel?.textColor = UIColor.white
+        cell.backgroundColor = UIColor(red: 85/255.0, green: 172/255.0, blue: 238/255.0, alpha: 1.0)
         
         return cell
     }
