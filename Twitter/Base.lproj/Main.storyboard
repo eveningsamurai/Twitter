@@ -273,8 +273,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="335"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nnw-vm-pIg">
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nnw-vm-pIg">
                                                     <rect key="frame" x="8" y="8" width="48" height="48"/>
+                                                    <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="48" id="5Ld-ad-pDm"/>
                                                         <constraint firstAttribute="height" constant="48" id="h2q-To-UsJ"/>
@@ -284,6 +285,9 @@
                                                             <integer key="value" value="24"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="uRn-ib-e9y" appends="YES" id="lXr-Yy-e9X"/>
+                                                    </connections>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Avinash Padmanabhan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QBk-cq-33x">
                                                     <rect key="frame" x="64" y="8" width="180" height="24"/>
@@ -361,11 +365,17 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="uDS-2a-gBz" id="GF7-92-KJJ"/>
+                        <segue destination="54q-VB-EBZ" kind="show" identifier="userToProfile" id="ofO-22-iyM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IOE-j8-Q2d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="uRn-ib-e9y">
+                    <connections>
+                        <action selector="onTapGesture:" destination="j0c-dk-PTN" id="9i8-fb-cHe"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1790" y="136"/>
+            <point key="canvasLocation" x="1889" y="134"/>
         </scene>
         <!--Tweet-->
         <scene sceneID="jT3-2f-uJv">
@@ -962,4 +972,7 @@
         <image name="twitter_reply" width="30" height="30"/>
         <image name="twitter_rt" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="ofO-22-iyM"/>
+    </inferredMetricsTieBreakers>
 </document>

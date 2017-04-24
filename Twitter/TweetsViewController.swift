@@ -14,6 +14,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     var tweets = [Tweet]()
     var minTweetId = INT64_MAX
+    var profile: User?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,17 +35,18 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.tableFooterView = spinner;
 
         fetchTweets(maxId: -1)
-//        TwitterClient.sharedInstance.homeTimeline(withMaxId: -1, success: { (tweets: [Tweet]) in
-//            self.tweets = tweets
-//            self.minTweetId = self.getMinTweetId(tweets: tweets)
-//            self.tableView.reloadData()
-//        }) { (error: Error) in
-//            print("error: \(error.localizedDescription)")
-//        }
     }
 
     @IBAction func onLogout(_ sender: Any) {
         TwitterClient.sharedInstance.logout()
+    }
+    
+    @IBAction func onTapGesture(_ sender: UITapGestureRecognizer) {
+        if let tappedRow = sender.view?.tag {
+            let tweet = tweets[tappedRow]
+            profile = tweet.user
+        }
+        performSegue(withIdentifier: "userToProfile", sender: self)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -68,13 +70,6 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     //get updated data
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
         fetchTweets(maxId: -1)
-//        TwitterClient.sharedInstance.homeTimeline(withMaxId: minTweetId, success: { (tweets: [Tweet]) in
-//            self.tweets = tweets
-//            self.minTweetId = self.getMinTweetId(tweets: tweets)
-//            self.tableView.reloadData()
-//        }) { (error: Error) in
-//            print("error: \(error.localizedDescription)")
-//        }
         refreshControl.endRefreshing()
     }
     
@@ -85,6 +80,12 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let navigationController = segue.destination as! UINavigationController
             let detailsViewController = navigationController.topViewController as! DetailsViewController
             detailsViewController.tweet = cell.tweet
+        } else if segue.identifier == "userToProfile" {
+            let profileViewController = segue.destination as! ProfileViewController
+            if let profile = profile {
+                print("Profile \(profile)")
+                //profileViewController.userData = profile
+            }
         }
     }
     

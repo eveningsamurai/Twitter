@@ -43,6 +43,7 @@ class User: NSObject {
         self.followers = user["followers_count"] as? Int
         self.following = user["friends_count"] as? Int
         self.tweetCount = user["statuses_count"] as? Int
+        self.tagline = user["description"] as? String
     }
     
     static var _currentUser: User?

@@ -37,11 +37,11 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.bounds.size.height/3
+        return tableView.bounds.size.height/4
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -51,8 +51,10 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.textLabel?.text = "Profile"
         } else if indexPath.row == 1 {
             cell.textLabel?.text = "Timeline"
-        } else {
+        } else if indexPath.row == 2 {
             cell.textLabel?.text = "Mentions"
+        } else {
+            cell.textLabel?.text = "Accounts"
         }
         cell.textLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 21)
         cell.textLabel?.textColor = UIColor.white
